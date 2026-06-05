@@ -1,11 +1,8 @@
-// Bala Screen Reader - Module Configuration
-// Based on Google TalkBack open-source project
-
 include ':talkback'
 include ':utils'
 include ':proguard'
 
-// Braille support modules
+// Those subroots which are not direct sub-folders root need to be specially declared.
 include ':braillecommon'
 project(':braillecommon').projectDir = new File('braille/common')
 include ':brailleinterfaces'
@@ -23,7 +20,6 @@ project(':brailledisplayanalytics').projectDir = new File('braille/brailledispla
 include 'braillebrltty'
 project(':braillebrltty').projectDir = new File('braille/brltty')
 
-// Material Design modules
 include ':materialflags'
 project(':materialflags').projectDir = new File('material/flags')
 include ':materialtheme'
