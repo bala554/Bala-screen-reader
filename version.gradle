@@ -1,0 +1,6 @@
+// Version Configuration for Bala Screen Reader
+
+ext {
+    talkbackApplicationId = "com.bala.screenreader"
+    talkbackVersionName = "1.0.0"
+}

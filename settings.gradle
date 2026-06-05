@@ -1,0 +1,34 @@
+// Bala Screen Reader - Module Configuration
+// Based on Google TalkBack open-source project
+
+include ':talkback'
+include ':utils'
+include ':proguard'
+
+// Braille support modules
+include ':braillecommon'
+project(':braillecommon').projectDir = new File('braille/common')
+include ':brailleinterfaces'
+project(':brailleinterfaces').projectDir = new File('braille/interfaces')
+include ':brailleime'
+project(':brailleime').projectDir = new File('braille/brailleime')
+include 'brailleimeanalytics'
+project(':brailleimeanalytics').projectDir = new File('braille/brailleimeanalytics')
+include 'brailletranslate'
+project(':brailletranslate').projectDir = new File('braille/translate')
+include 'brailledisplay'
+project(':brailledisplay').projectDir = new File('braille/brailledisplay')
+include 'brailledisplayanalytics'
+project(':brailledisplayanalytics').projectDir = new File('braille/brailledisplayanalytics')
+include 'braillebrltty'
+project(':braillebrltty').projectDir = new File('braille/brltty')
+
+// Material Design modules
+include ':materialflags'
+project(':materialflags').projectDir = new File('material/flags')
+include ':materialtheme'
+project(':materialtheme').projectDir = new File('material/theme')
+include ':materialpreference'
+project(':materialpreference').projectDir = new File('material/preference')
+include ':materialpreferencecompose'
+project(':materialpreferencecompose').projectDir = new File('material/preference/compose')

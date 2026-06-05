@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.bala.screenreader">
+
+    <!-- Features -->
+    <uses-feature android:name="android.hardware.microphone" android:required="false" />
+    <uses-feature android:name="android.hardware.location" android:required="false" />
+    <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="false" />
+
+    <!-- Permissions for Screen Reader Functionality -->
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" tools:ignore="QueryAllPackagesPermission" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <application android:supportsRtl="true">
+
+        <!-- Bala Screen Reader Service -->
+        <service
+            android:icon="@drawable/icon"
+            android:name="com.bala.screenreader.BalaScreenReaderService"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:directBootAware="true">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+                <category android:name="android.accessibilityservice.category.FEEDBACK_AUDIBLE" />
+                <category android:name="android.accessibilityservice.category.FEEDBACK_HAPTIC" />
+                <category android:name="android.accessibilityservice.category.FEEDBACK_SPOKEN" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibilityservice" />
+        </service>
+
+        <!-- IPC Service for inter-process communication -->
+        <service
+            android:icon="@drawable/icon"
+            android:name="com.bala.screenreader.ipc.IpcService"
+            android:enabled="true"
+            android:exported="false"
+            android:label="@string/app_name" />
+
+        <!-- Settings Activity -->
+        <activity
+            android:name="com.bala.screenreader.BalaScreenReaderPreferencesActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:taskAffinity="com.bala.screenreader.SettingsAffinity"
+            android:theme="@style/AppTheme"
+            tools:ignore="ExportedActivity" >
+            <intent-filter>
+                <category android:name="android.accessibilityservice.SERVICE_SETTINGS" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- Content provider for custom label data -->
+        <provider
+            android:name="com.bala.screenreader.labeling.LabelProvider"
+            android:authorities="${applicationId}.providers.LabelProvider"
+            android:exported="true"
+            android:directBootAware="true" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.providers.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+    </application>
+</manifest>

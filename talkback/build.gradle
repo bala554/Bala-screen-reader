@@ -1,0 +1,27 @@
+// Bala Screen Reader - TalkBack Module Build Configuration
+// Based on Google TalkBack open-source project
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply from: "../shared.gradle"
+
+dependencies {
+    implementation project(':proguard')
+    implementation project(':utils')
+    implementation project(':brailleime')
+    implementation project(':brailleinterfaces')
+    implementation project(':brailledisplay')
+    implementation project(':materialflags')
+    implementation project(':materialpreference')
+    // Wear OS dependencies
+    wearImplementation project(':materialpreferencecompose')
+    wearImplementation project(':materialtheme')
+}
+
+android {
+    namespace "com.bala.screenreader"
+    defaultConfig {
+        buildConfigField("String", "APPLICATION_ID", '"' + talkbackApplicationId + '"')
+        buildConfigField("String", "GEMINI_API_KEY", "\"\"")
+    }
+}
